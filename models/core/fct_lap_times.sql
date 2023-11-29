@@ -1,14 +1,13 @@
-WITH lap_times AS (
-    SELECT 
-        {{ dbt_utils.generate_surrogate_key(['race_id', 'driver_id', 'lap']) }}         AS lap_times_id,
-        race_id                                                                         AS race_id,
-        driver_id                                                                       AS driver_id,
-        lap                                                                             AS lap,
-        driver_position                                                                 AS driver_position,
-        lap_time_formatted                                                              AS lap_time_formatted,
-        official_laptime                                                                AS official_laptime,
-        lap_time_milliseconds                                                           AS lap_time_milliseconds
-    FROM {{ ref('stg_lap_times') }}
+with lap_times as (
+    select 
+        {{ dbt_utils.generate_surrogate_key(['race_id', 'driver_id', 'lap']) }} as lap_times_id,
+        race_id                                                                 as race_id,
+        driver_id                                                               as driver_id,
+        lap                                                                     as lap,
+        driver_position                                                         as driver_position,
+        lap_time_formatted                                                      as lap_time_formatted,
+        official_laptime                                                        as official_laptime,
+        lap_time_milliseconds                                                   as lap_time_milliseconds
+    from {{ ref('stg_lap_times') }}
 )
-
-SELECT * FROM lap_times
+select * from lap_times
